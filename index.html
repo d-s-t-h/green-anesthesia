@@ -680,6 +680,9 @@
             }
         }
 
+        // Google Sheets Web App URL
+        const GOOGLE_SHEETS_URL = 'https://script.google.com/macros/s/AKfycbyDOslaTLO_8ERd43X65H5qscJ2IVkwZOUek8EviNZxq0YPUh2g0U_Ah8D4Y78E8La9uA/exec';
+
         function submitSurvey() {
             const allResponses = {};
             surveyData.sections.forEach(section => {
@@ -690,6 +693,11 @@
 
             submittedResponses.push(allResponses);
 
+            // Send to Google Sheets if URL is configured
+            if (GOOGLE_SHEETS_URL) {
+                sendToGoogleSheets(allResponses);
+            }
+
             const container = document.getElementById('questionsContainer');
             container.innerHTML = '<div class="thank-you"><h2>Thank You!</h2><p>Your survey response has been recorded. Your insights will help improve sustainability practices in the operating room.</p><button class="btn btn--primary" onclick="restartSurvey()">Start New Response</button></div>';
 
@@ -697,6 +705,41 @@
             document.getElementById('prevBtn').style.display = 'none';
 
             updateAdmin();
+        }
+
+        function sendToGoogleSheets(data) {
+            // Format data for Google Sheets
+            const timestamp = new Date().toISOString();
+            const rowData = [timestamp];
+            
+            // Add all question responses in order
+            surveyData.sections.forEach(section => {
+                section.questions.forEach(q => {
+                    let value = data[q.id];
+                    if (Array.isArray(value)) {
+                        value = value.join('; ');
+                    }
+                    if (value === null || value === undefined) {
+                        value = '';
+                    }
+                    rowData.push(String(value));
+                });
+            });
+
+            // Send POST request to Google Apps Script
+            // Google Apps Script expects JSON in e.postData.contents
+            const payload = JSON.stringify({ data: rowData });
+            
+            fetch(GOOGLE_SHEETS_URL, {
+                method: 'POST',
+                mode: 'no-cors',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: payload
+            }).catch(error => {
+                console.log('Response saved locally. Google Sheets sync may have failed.');
+            });
         }
 
         function restartSurvey() {
