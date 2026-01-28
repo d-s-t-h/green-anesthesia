@@ -415,11 +415,17 @@
                 </ul>
 
                 <div style="margin-top:14px;">
+                    <label class="form-label form-label--required" for="consentEmail">Email address</label>
+                    <input id="consentEmail" type="email" placeholder="you@example.com">
+                    <div class="modal__note">Used only to send you a copy/receipt of your consent and responses if needed.</div>
+                </div>
+
+                <div style="margin-top:14px;">
                     <label class="checkbox-option" style="padding: 10px 12px;">
                         <input type="checkbox" id="consentConfirm">
                         <span>I confirm the above statements and agree to participate in this survey.</span>
                     </label>
-                    <div id="consentError" class="modal__error">Please confirm your agreement to continue.</div>
+                    <div id="consentError" class="modal__error">Please enter your email and confirm your agreement to continue.</div>
                 </div>
             </div>
             <div class="modal__footer">
@@ -471,10 +477,9 @@
                     title: "Demographics",
                     description: "Tell us about your role and experience in the operating room",
                     questions: [
-                        { id: 0, type: "text", question: "Enter your email address, please", placeholder: "you@example.com" },
-                        { id: 1, type: "single_choice", question: "Your role in the Operation Room", options: ["Anesthesiologist", "Surgeon", "Nurse", "Technician/Paramedical Staff"] },
-                        { id: 2, type: "single_choice", question: "Years of experience in the Operation Theatre", options: ["<1 year", "1–5 years", "6–10 years", ">10 years"] },
-                        { id: 3, type: "single_choice", question: "Average number of surgeries you participate in per week", options: ["5-10", "11-20", "21-50", "More than 50"] }
+                        { id: 1, type: "single_choice", question: "Your role in the Operation Room", options: ["Anesthesiologist", "Surgeon", "Nurse", "Technician/Paramedical Staff"], required: true },
+                        { id: 2, type: "single_choice", question: "Years of experience in the Operation Theatre", options: ["<1 year", "1–5 years", "6–10 years", ">10 years"], required: true },
+                        { id: 3, type: "single_choice", question: "Average number of surgeries you participate in per week", options: ["5-10", "11-20", "21-50", "More than 50"], required: true }
                     ]
                 },
                 {
@@ -482,9 +487,9 @@
                     title: "Awareness",
                     description: "Your awareness and perception of sustainability in the OR",
                     questions: [
-                        { id: 4, type: "single_choice", question: "How familiar are you with the concept of sustainability in the OR?", options: ["Passionate about it", "Very familiar", "Somewhat familiar", "Not familiar"] },
-                        { id: 5, type: "single_choice", question: "Do you think OR activities significantly contribute to hospital waste and carbon footprint?", options: ["Yes", "No", "Unsure"] },
-                        { id: 6, type: "multiple_choice", question: "Which of the following contribute most to environmental impact in the OR? (Select up to 3)", options: ["Single-use plastics", "Energy consumption (lights, HVAC)", "Anesthetic gases", "Water wastage", "Biomedical waste segregation practices", "Overuse of consumables (gowns, drapes, etc.)", "Don't know"], max_select: 3 }
+                        { id: 4, type: "single_choice", question: "How familiar are you with the concept of sustainability in the OR?", options: ["Passionate about it", "Very familiar", "Somewhat familiar", "Not familiar"], required: true },
+                        { id: 5, type: "single_choice", question: "Do you think OR activities significantly contribute to hospital waste and carbon footprint?", options: ["Yes", "No", "Unsure"], required: true },
+                        { id: 6, type: "multiple_choice", question: "Which of the following contribute most to environmental impact in the OR? (Select up to 3)", options: ["Single-use plastics", "Energy consumption (lights, HVAC)", "Anesthetic gases", "Water wastage", "Biomedical waste segregation practices", "Overuse of consumables (gowns, drapes, etc.)", "Don't know"], max_select: 3, required: true }
                     ]
                 },
                 {
@@ -492,10 +497,10 @@
                     title: "Knowledge",
                     description: "Your knowledge about sustainable practices in anesthesia and OR management",
                     questions: [
-                        { id: 7, type: "multiple_choice", question: "Which anesthetic agents are considered high-impact greenhouse gases?", options: ["Desflurane", "Sevoflurane", "Nitrous Oxide", "Unsure"] },
-                        { id: 8, type: "single_choice", question: "Are you aware of low-flow anesthesia techniques to reduce volatile anesthetic use?", options: ["Yes, I routinely practice", "Yes, but I don't practice routinely", "I am aware of the term, but don't know the details", "Don't know", "Not sure"] },
-                        { id: 9, type: "single_choice", question: "In your OR, are recycling/segregation bins available and used effectively?", options: ["Yes, always", "Yes, but inconsistently", "No", "Don't know"] },
-                        { id: 10, type: "single_choice", question: "How often do you see single-use items discarded unopened/unused?", options: ["Frequently", "Occasionally", "Never", "Don't know"] }
+                        { id: 7, type: "multiple_choice", question: "Which anesthetic agents are considered high-impact greenhouse gases?", options: ["Desflurane", "Sevoflurane", "Nitrous Oxide", "Unsure"], required: true },
+                        { id: 8, type: "single_choice", question: "Are you aware of low-flow anesthesia techniques to reduce volatile anesthetic use?", options: ["Yes, I routinely practice", "Yes, but I don't practice routinely", "I am aware of the term, but don't know the details", "Don't know", "Not sure"], required: true },
+                        { id: 9, type: "single_choice", question: "In your OR, are recycling/segregation bins available and used effectively?", options: ["Yes, always", "Yes, but inconsistently", "No", "Don't know"], required: true },
+                        { id: 10, type: "single_choice", question: "How often do you see single-use items discarded unopened/unused?", options: ["Frequently", "Occasionally", "Never", "Don't know"], required: true }
                     ]
                 },
                 {
@@ -503,9 +508,9 @@
                     title: "Practices & Micro-habits",
                     description: "Your current practices and micro-habits related to sustainability",
                     questions: [
-                        { id: 11, type: "single_choice", question: "Do you make it a habit to turn off suction, cautery, or monitors when not in use?", options: ["Always", "Sometimes", "Never"] },
-                        { id: 12, type: "single_choice", question: "How often do you remind colleagues about avoiding unnecessary opening of supplies or switching off unused equipment?", options: ["Frequently", "Occasionally", "Never"] },
-                        { id: 13, type: "multiple_choice", question: "Which micro-habits are most feasible in your OR? (Select all that apply)", options: ["Turning off lights/monitors when not in use", "Using reusable gowns/drapes where possible", "Practicing low-flow anesthesia", "Segregating waste properly", "Avoiding unnecessary opening of consumables", "Encouraging digital over paper records", "Recycling packaging/plastics from supplies"] }
+                        { id: 11, type: "single_choice", question: "Do you make it a habit to turn off suction, cautery, or monitors when not in use?", options: ["Always", "Sometimes", "Never"], required: true },
+                        { id: 12, type: "single_choice", question: "How often do you remind colleagues about avoiding unnecessary opening of supplies or switching off unused equipment?", options: ["Frequently", "Occasionally", "Never"], required: true },
+                        { id: 13, type: "multiple_choice", question: "Which micro-habits are most feasible in your OR? (Select all that apply)", options: ["Turning off lights/monitors when not in use", "Using reusable gowns/drapes where possible", "Practicing low-flow anesthesia", "Segregating waste properly", "Avoiding unnecessary opening of consumables", "Encouraging digital over paper records", "Recycling packaging/plastics from supplies"], required: true }
                     ]
                 },
                 {
@@ -513,9 +518,9 @@
                     title: "Barriers",
                     description: "Barriers and obstacles to sustainable practices in the OR",
                     questions: [
-                        { id: 14, type: "multiple_choice", question: "What barriers prevent you from adopting sustainable OR practices? (Select all that apply)", options: ["Lack of awareness/training", "Institutional policy restrictions", "Concerns about infection control", "Lack of infrastructure (bins, reusables, etc.)", "Time pressure in OT", "No perceived benefit", "Hierarchy / reluctance of seniors", "Fear of breaking tradition/protocol"] },
-                        { id: 15, type: "single_choice", question: "Have you ever received formal training on sustainable OT practices (waste, energy, anesthetic gases)?", options: ["Yes, multiple times", "Yes, once", "No, never"] },
-                        { id: 16, type: "single_choice", question: "Would short periodic workshops help you adopt better sustainable practices in the OR?", options: ["Yes", "No", "Maybe"] }
+                        { id: 14, type: "multiple_choice", question: "What barriers prevent you from adopting sustainable OR practices? (Select all that apply)", options: ["Lack of awareness/training", "Institutional policy restrictions", "Concerns about infection control", "Lack of infrastructure (bins, reusables, etc.)", "Time pressure in OT", "No perceived benefit", "Hierarchy / reluctance of seniors", "Fear of breaking tradition/protocol"], required: true },
+                        { id: 15, type: "single_choice", question: "Have you ever received formal training on sustainable OT practices (waste, energy, anesthetic gases)?", options: ["Yes, multiple times", "Yes, once", "No, never"], required: true },
+                        { id: 16, type: "single_choice", question: "Would short periodic workshops help you adopt better sustainable practices in the OR?", options: ["Yes", "No", "Maybe"], required: true }
                     ]
                 },
                 {
@@ -523,13 +528,13 @@
                     title: "Perceptions & Suggestions",
                     description: "Your perceptions, values, and suggestions for improvement",
                     questions: [
-                        { id: 17, type: "single_choice", question: "How important should sustainability be as a quality metric in healthcare delivery?", options: ["Very important", "Moderately important", "Not important", "Don't know"] },
-                        { id: 18, type: "single_choice", question: "Do you think micro-habits in the OT can make a meaningful difference?", options: ["Yes, significant difference", "Yes, small difference", "No, negligible effect"] },
-                        { id: 19, type: "single_choice", question: "Do you feel your suggestions about sustainability are taken seriously by doctors/administration?", options: ["Yes, always", "Sometimes", "Never", "Does not apply"] },
-                        { id: 20, type: "single_choice", question: "If your hospital introduced a recognition program for 'Green OR Champions,' would it motivate you?", options: ["Yes", "No", "Maybe"] },
-                        { id: 21, type: "single_choice", question: "How important do you think it is that every level of OR staff has a voice in discussions on reducing waste and improving energy efficiency?", options: ["Very important", "Somewhat important", "Not important", "Don't know"] },
-                        { id: 22, type: "single_choice", question: "How important do you think it is to incorporate environment and sustainability related topics in the curriculum of healthcare education?", options: ["Very important", "Somewhat important", "Not important", "Don't know"] },
-                        { id: 23, type: "text", question: "Please share one suggestion from your daily experience that could make the OT more sustainable.", placeholder: "Enter your suggestion here..." }
+                        { id: 17, type: "single_choice", question: "How important should sustainability be as a quality metric in healthcare delivery?", options: ["Very important", "Moderately important", "Not important", "Don't know"], required: true },
+                        { id: 18, type: "single_choice", question: "Do you think micro-habits in the OT can make a meaningful difference?", options: ["Yes, significant difference", "Yes, small difference", "No, negligible effect"], required: true },
+                        { id: 19, type: "single_choice", question: "Do you feel your suggestions about sustainability are taken seriously by doctors/administration?", options: ["Yes, always", "Sometimes", "Never", "Does not apply"], required: true },
+                        { id: 20, type: "single_choice", question: "If your hospital introduced a recognition program for 'Green OR Champions,' would it motivate you?", options: ["Yes", "No", "Maybe"], required: true },
+                        { id: 21, type: "single_choice", question: "How important do you think it is that every level of OR staff has a voice in discussions on reducing waste and improving energy efficiency?", options: ["Very important", "Somewhat important", "Not important", "Don't know"], required: true },
+                        { id: 22, type: "single_choice", question: "How important do you think it is to incorporate environment and sustainability related topics in the curriculum of healthcare education?", options: ["Very important", "Somewhat important", "Not important", "Don't know"], required: true },
+                        { id: 23, type: "text", question: "Please share one suggestion from your daily experience that could make the OT more sustainable.", placeholder: "Enter your suggestion here...", required: true }
                     ]
                 }
             ]
@@ -538,6 +543,7 @@
         let currentSection = 0;
         let responses = [];
         let consentSigned = false;
+        let consentEmail = '';
 
         function initSurvey() {
             responses = {};
@@ -553,8 +559,10 @@
 
         function resetConsent() {
             consentSigned = false;
+            consentEmail = '';
             if (consentCheckbox) consentCheckbox.checked = false;
             if (consentError) consentError.style.display = 'none';
+            if (consentEmailInput) consentEmailInput.value = '';
             openConsentModal();
         }
 
@@ -572,15 +580,40 @@
 
         function handleConsentAgree() {
             const confirmed = consentCheckbox.checked;
+            const email = (consentEmailInput.value || '').trim();
 
-            if (!confirmed) {
+            if (!confirmed || !email) {
                 consentError.style.display = 'block';
                 return;
             }
 
             consentSigned = true;
+            consentEmail = email;
             consentError.style.display = 'none';
             closeConsentModal();
+        }
+
+        function isAnswered(q, val) {
+            if (!q.required) return true;
+            if (q.type === 'single_choice') return Boolean(val);
+            if (q.type === 'multiple_choice') return Array.isArray(val) && val.length > 0;
+            if (q.type === 'text') return Boolean((val || '').trim());
+            return true;
+        }
+
+        function validateSection(section) {
+            const missing = [];
+            section.questions.forEach(q => {
+                const val = responses[section.id][q.id];
+                if (!isAnswered(q, val)) {
+                    missing.push(`Q${q.id}: ${q.question}`);
+                }
+            });
+            if (missing.length) {
+                alert("Please answer all required questions:\n\n" + missing.join("\n"));
+                return false;
+            }
+            return true;
         }
 
         function renderSection() {
@@ -687,7 +720,7 @@
                 return;
             }
             const section = surveyData.sections[currentSection];
-            let hasError = false;
+            if (!validateSection(section)) return;
 
             section.questions.forEach(q => {
                 if (q.type === 'multiple_choice' && !Array.isArray(responses[section.id][q.id])) {
@@ -718,6 +751,8 @@
                 openConsentModal();
                 return;
             }
+            const section = surveyData.sections[currentSection];
+            if (!validateSection(section)) return;
             const allResponses = {};
             surveyData.sections.forEach(section => {
                 section.questions.forEach(q => {
@@ -741,7 +776,7 @@
             // Format data for Google Sheets
             const timestamp = new Date().toISOString();
             const rowData = [timestamp];
-            rowData.push('Consented');
+            rowData.push(consentEmail || 'Consented');
             
             // Add all question responses in order
             surveyData.sections.forEach(section => {
@@ -783,6 +818,7 @@
 
         // Initialize on load
         const consentModal = document.getElementById('consentModal');
+        const consentEmailInput = document.getElementById('consentEmail');
         const consentCheckbox = document.getElementById('consentConfirm');
         const consentError = document.getElementById('consentError');
         const consentAgreeBtn = document.getElementById('consentAgreeBtn');
