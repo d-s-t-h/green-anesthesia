@@ -399,37 +399,27 @@
         <div class="modal">
             <div class="modal__header">
                 <h2 id="consentTitle" class="modal__title">Consent to Participate</h2>
-                <p class="modal__subtitle">Please review and provide your signature to begin the survey.</p>
+                <p class="modal__subtitle">Please review and provide your consent to begin the survey.</p>
             </div>
             <div class="modal__body">
+                <p><strong>Title:</strong> SUSTAINABILITY IN THE OPERATING ROOM: A CROSS-SECTIONAL SURVEY ON
+                MICRO-HABITS, KNOWLEDGE, AND BARRIERS AMONG OPERATING ROOM STAFF USING
+                AN INTERACTIVE WEB APPLICATION.</p>
                 <p><strong>Purpose:</strong> This survey gathers insights about everyday micro-habits and practices that impact environmental sustainability in the operating room.</p>
                 <p>Participation is voluntary. You may stop at any time by closing this page. Responses are intended for research, quality-improvement, and educational use.</p>
-                <p>To document your consent, please provide your name or initials and confirm the statement below. This signature will be stored with your responses.</p>
+                <p>To document your consent, please confirm the statement below.</p>
                 <ul>
                     <li>I have read and understood the information above.</li>
                     <li>I am 18 years of age or older and work in/around an operating room.</li>
-                    <li>I voluntarily agree to participate and allow my responses (with the signature below) to be used for the purposes stated.</li>
+                    <li>I voluntarily agree to participate and allow my responses to be used for the purposes stated.</li>
                 </ul>
-
-                <div class="consent-grid">
-                    <div>
-                        <label class="form-label form-label--required" for="consentName">Signature (name or initials)</label>
-                        <input id="consentName" type="text" placeholder="Enter name or initials">
-                        <div class="modal__note">Stored with this survey response as proof of consent.</div>
-                    </div>
-                    <div>
-                        <label class="form-label form-label--required" for="consentDate">Date</label>
-                        <input id="consentDate" type="date">
-                        <div class="modal__note">Defaults to today; adjust if needed.</div>
-                    </div>
-                </div>
 
                 <div style="margin-top:14px;">
                     <label class="checkbox-option" style="padding: 10px 12px;">
                         <input type="checkbox" id="consentConfirm">
                         <span>I confirm the above statements and agree to participate in this survey.</span>
                     </label>
-                    <div id="consentError" class="modal__error">Please provide your signature, date, and agreement to continue.</div>
+                    <div id="consentError" class="modal__error">Please confirm your agreement to continue.</div>
                 </div>
             </div>
             <div class="modal__footer">
@@ -547,7 +537,6 @@
         let currentSection = 0;
         let responses = [];
         let consentSigned = false;
-        let consentDetails = null;
 
         function initSurvey() {
             responses = {};
@@ -561,18 +550,8 @@
             resetConsent();
         }
 
-        function getTodayISO() {
-            const today = new Date();
-            const month = String(today.getMonth() + 1).padStart(2, '0');
-            const day = String(today.getDate()).padStart(2, '0');
-            return `${today.getFullYear()}-${month}-${day}`;
-        }
-
         function resetConsent() {
             consentSigned = false;
-            consentDetails = null;
-            if (consentNameInput) consentNameInput.value = '';
-            if (consentDateInput) consentDateInput.value = getTodayISO();
             if (consentCheckbox) consentCheckbox.checked = false;
             if (consentError) consentError.style.display = 'none';
             openConsentModal();
@@ -591,17 +570,14 @@
         }
 
         function handleConsentAgree() {
-            const name = (consentNameInput.value || '').trim();
-            const date = consentDateInput.value || getTodayISO();
             const confirmed = consentCheckbox.checked;
 
-            if (!name || !date || !confirmed) {
+            if (!confirmed) {
                 consentError.style.display = 'block';
                 return;
             }
 
             consentSigned = true;
-            consentDetails = { name, date, agreedAt: new Date().toISOString() };
             consentError.style.display = 'none';
             closeConsentModal();
         }
@@ -764,8 +740,7 @@
             // Format data for Google Sheets
             const timestamp = new Date().toISOString();
             const rowData = [timestamp];
-            const consentSignature = consentDetails ? `${consentDetails.name} (${consentDetails.date || 'no date'})` : '';
-            rowData.push(consentSignature);
+            rowData.push('Consented');
             
             // Add all question responses in order
             surveyData.sections.forEach(section => {
@@ -807,8 +782,6 @@
 
         // Initialize on load
         const consentModal = document.getElementById('consentModal');
-        const consentNameInput = document.getElementById('consentName');
-        const consentDateInput = document.getElementById('consentDate');
         const consentCheckbox = document.getElementById('consentConfirm');
         const consentError = document.getElementById('consentError');
         const consentAgreeBtn = document.getElementById('consentAgreeBtn');
